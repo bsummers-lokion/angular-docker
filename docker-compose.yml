@@ -1,15 +1,11 @@
-version: '3.7'
+version: '3.9'
 
+# Builds a production bundle and starts an Nginx server to deliver it
 services:
   app:
-    build: .
-    command: sh -c "npm start"
+    build:
+      context: .
+      dockerfile: config/docker/build-and-deploy.Dockerfile
+    container_name: angular_app_prod
     ports:
-      - "5200:4200"
-    working_dir: /home/node/app
-    volumes:
-      - ./:/home/node/app
-      - node_modules:/home/node/app/node_modules
-
-volumes:
-  node_modules:
+      - "9200:80"
